@@ -11,7 +11,7 @@ import VideoPopular from '@/components/VideoPopular';
 async function getNews() {
   try {
     const baseUrl = process.env.PUBLIC_DOMAIN;
-    const url = baseUrl ? `${baseUrl}/api/news` : '/api/news';
+    const url = baseUrl ? `${baseUrl}/api/news` : 'http://localhost:3000/api/news';
     const response = await fetch(url, { cache: 'no-store' });
     return response.json();
   } catch (error) {

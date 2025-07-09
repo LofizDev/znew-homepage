@@ -53,7 +53,7 @@ export default function VideoPopular({ videos }: VideoPopularProps) {
                 </h2>
                 <div className="flex flex-col lg:flex-row gap-3">
                     {/* Main Video */}
-                    <div className="flex-1 flex items-center justify-center rounded-lg relative min-h-[320px] max-h-[520px] aspect-video overflow-hidden">
+                    <div className="flex-1 flex items-center justify-center rounded-lg relative w-full aspect-video overflow-hidden lg:min-h-[320px] lg:max-h-[520px]">
                         <video
                             ref={videoRef}
                             src={videos[current].url}
