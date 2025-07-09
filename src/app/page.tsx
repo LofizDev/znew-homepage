@@ -10,7 +10,8 @@ import VideoPopular from '@/components/VideoPopular';
 
 async function getNews() {
   try {
-    const response = await fetch('/api/news', { cache: 'no-store' });
+    const baseUrl = process.env.PUBLIC_DOMAIN || 'http://localhost:3000';
+    const response = await fetch(`${baseUrl}/api/news`, { cache: 'no-store' });
     return response.json();
   } catch (error) {
     console.error('Error fetching data:', error);
