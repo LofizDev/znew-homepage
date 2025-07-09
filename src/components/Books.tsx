@@ -3,10 +3,11 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import type { CustomArrowProps } from 'react-slick';
 import Slider from 'react-slick';
 
-import { BOOKS } from '@/constants/article';
+import { Article } from '@/types/article';
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -40,7 +41,11 @@ function PrevArrow(props: CustomArrowProps) {
     );
 }
 
-export default function Books() {
+type BookProps = {
+    books: Article[]
+}
+
+export default function Books({ books }: BookProps) {
     const settings = {
         dots: false,
         infinite: false,
@@ -69,21 +74,23 @@ export default function Books() {
                     <span className="text-red-500 text-xl">/</span>BOOKS
                 </h2>
                 <Slider {...settings}>
-                    {BOOKS.map(book => (
+                    {books.map(book => (
                         <div
                             key={book.title}
                             className="p-2"
                         >
-                            <div className="min-w-[180px] h-[216px] bg-white rounded shadow flex flex-col justify-between">
-                                <Image
-                                    src={book.image}
-                                    alt={book.title}
-                                    width={160}
-                                    height={136}
-                                    className="w-full h-[136px] object-cover rounded"
-                                />
-                                <div className="font-semibold text-gray-800 p-3 h-full text-sm">{book.title}</div>
-                            </div>
+                            <Link href={`/article/${book.id}`} className="block hover:opacity-90 transition-opacity">
+                                <div className="min-w-[180px] h-[216px] bg-white rounded shadow flex flex-col justify-between">
+                                    <Image
+                                        src={book.image}
+                                        alt={book.title}
+                                        width={160}
+                                        height={136}
+                                        className="w-full h-[136px] object-cover rounded"
+                                    />
+                                    <div className="font-semibold text-gray-800 p-3 h-full text-sm">{book.title}</div>
+                                </div>
+                            </Link>
                         </div>
                     ))}
                 </Slider>

@@ -8,46 +8,19 @@ import Image from 'next/image';
 
 import { PlayIcon } from '@heroicons/react/24/solid';
 
-const VIDEOS = [
-    {
-        url: "https://www.w3schools.com/html/mov_bbb.mp4",
-        thumb: "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
-        title: "Giải cứu người mắc kẹt trên sông Hồng",
-        category: "XÃ HỘI",
-    },
-    {
-        url: "https://www.w3schools.com/html/movie.mp4",
-        thumb: "https://images.unsplash.com/photo-1469334031218-e382a71b716b",
-        title: "Thi công khẩn trương đường Vành đai 3 TP.HCM đoạn qua Bình Dương",
-        category: "KINH DOANH",
-    },
-    {
-        url: "https://www.w3schools.com/html/mov_bbb.mp4",
-        thumb: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308",
-        title: "Gấu xuất hiện trên đường băng, sân bay Nhật tê liệt nhiều giờ",
-        category: "THẾ GIỚI",
-    },
-    {
-        url: "https://www.w3schools.com/html/movie.mp4",
-        thumb: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9",
-        title: "Hơn 7.400 quân nhân và dân quân tự vệ hợp luyện nhiệm vụ A80",
-        category: "XÃ HỘI",
-    },
-    {
-        url: "https://www.w3schools.com/html/mov_bbb.mp4",
-        thumb: "https://images.unsplash.com/photo-1482329833197-916d32bdae74?q=80&w=1093&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        title: "Đồng Nai có gần 150 điểm giết mổ lậu",
-        category: "XÃ HỘI",
-    },
-    {
-        url: "https://www.tiktok.com/@constantgains/video/7518129980132429070",
-        thumb: "https://images.unsplash.com/photo-1502767089025-6572583495b4",
-        title: "TikTok: Cứu hộ trên sông Hồng",
-        category: "TIKTOK",
-    },
-];
+type Video = {
+    id: number;
+    url: string;
+    thumb: string;
+    title: string;
+    category: string;
+};
 
-export default function VideoPopular() {
+type VideoPopularProps = {
+    videos: Video[];
+};
+
+export default function VideoPopular({ videos }: VideoPopularProps) {
     const [current, setCurrent] = useState(0);
     const [playing, setPlaying] = useState(false);
     const videoRef = useRef<HTMLVideoElement>(null);
@@ -83,8 +56,8 @@ export default function VideoPopular() {
                     <div className="flex-1 flex items-center justify-center rounded-lg relative min-h-[320px] max-h-[520px] aspect-video overflow-hidden">
                         <video
                             ref={videoRef}
-                            src={VIDEOS[current].url}
-                            poster={VIDEOS[current].thumb}
+                            src={videos[current].url}
+                            poster={videos[current].thumb}
                             className="w-full h-full object-cover bg-black"
                             controls={playing}
                             onEnded={() => setPlaying(false)}
@@ -105,9 +78,9 @@ export default function VideoPopular() {
                     {/* Video List */}
                     <div className="w-full lg:w-[25%] max-w-full">
                         <div className="h-full rounded-lg bg-gray-100 overflow-y-auto pr-2 custom-scrollbar">
-                            {VIDEOS.map((v, idx) => (
+                            {videos.map((v, idx) => (
                                 <div
-                                    key={v.url}
+                                    key={v.id}
                                     className={`flex items-start gap-3 pt-3 px-3 rounded cursor-pointer transition group hover:bg-gray-100`}
                                     onClick={() => handleSelect(idx)}
                                 >
