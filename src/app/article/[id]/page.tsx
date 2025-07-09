@@ -3,10 +3,11 @@ import Link from 'next/link';
 
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 
-export default function ArticlePage({ params }: { params: { id: string } }) {
+export default async function ArticlePage({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params;
     const article = {
-        id: params.id,
-        title: `Article ${params.id} - Comprehensive News Analysis`,
+        id: id,
+        title: `Article ${id} - Comprehensive News Analysis`,
         image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     };
 
