@@ -10,7 +10,7 @@ import VideoPopular from '@/components/VideoPopular';
 
 async function getNews() {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/news`, { cache: 'no-store' });
+    const response = await fetch('/api/news', { cache: 'no-store' });
     return response.json();
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -19,8 +19,23 @@ async function getNews() {
 }
 
 export default async function Home() {
+  const data = await getNews();
+
+  if (!data) {
+    return (
+      <main>
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold text-gray-900 mb-4">Loading...</h1>
+            <p className="text-gray-600">Unable to load news data</p>
+          </div>
+        </div>
+      </main>
+    );
+  }
+
   const { trendingTags, mainNews, books, multipleTags, multimedia,
-    newsSpotlight, categoryNews, categoryGrid, magazine, videoPopular } = await getNews();
+    newsSpotlight, categoryNews, categoryGrid, magazine, videoPopular } = data;
 
 
   return (
